@@ -28,12 +28,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/blog/edit/:id", async (req, res) => {
-  console.log("Hello world");
   try {
     const blogData = await Blog.findByPk(req.params.id);
     const blog = blogData.get({ plain: true });
     res.render("edit", {
-      blog,
+      ...blog,
     });
   } catch (err) {
     console.log(err);
