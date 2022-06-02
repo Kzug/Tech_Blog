@@ -15,6 +15,32 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+//Update a blog probably goes here
+router.put("/:id", withAuth, async (req, res) => {
+  try {
+    const blogData = await Blog.update(
+      {
+        ...req.body,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
+    res.redirect("/profile");
+    console.log(blogData);
+
+    if (!blogData) {
+      res.status(404).json({ message: "No blog found with this id!" });
+      return;
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.delete("/:id", withAuth, async (req, res) => {
   try {
     const blogData = await Blog.destroy({

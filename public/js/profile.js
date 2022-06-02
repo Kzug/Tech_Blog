@@ -36,11 +36,31 @@ const delButtonHandler = async (event) => {
     }
   }
 };
+//adding edit button handler
+const editButtonHandler = async (event) => {
+  if (event.target.hasAttribute("data-id")) {
+    const id = event.target.getAttribute("data-id");
+
+    const response = await fetch(`/api/blogs/${id}`, {
+      method: "PUT",
+    });
+
+    if (response.ok) {
+      document.location.replace("/profile");
+    } else {
+      alert("Failed to edit blog");
+    }
+  }
+};
 
 document
   .querySelector(".new-blog-entry")
   .addEventListener("submit", newFormHandler);
 
 document
-  .querySelector(".blog-list")
+  .querySelector("#deletebutton")
   .addEventListener("click", delButtonHandler);
+
+document
+  .querySelector(".editbutton")
+  .addEventListener("click", editButtonHandler);
