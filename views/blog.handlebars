@@ -6,11 +6,16 @@
   <p>Created by {{user.name}} on {{format_date date_created}}</p>
 </div>
 
+
+
+
 {{!-- create comment form/comment here --}}
  
     <div>
       <p>Leave a comment:</p>
-        <textarea class="form-input" id="addcomment" name="comment"></textarea>
+        <textarea class="form-input commentcontent" name="comment"></textarea>
         <br>
-              <button class="btn btn-primary addComment" type="submit">Submit</button>
+              <button class="btn btn-primary addcomment" type="submit">Submit</button>
     </div>
+
+    <script src="/js/addComment.js"></script>

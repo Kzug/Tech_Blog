@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Blog, User } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -32,7 +32,7 @@ router.get("/blog/edit/:id", async (req, res) => {
     const blogData = await Blog.findByPk(req.params.id);
     const blog = blogData.get({ plain: true });
     res.render("edit", {
-      ...blog,
+      blog,
     });
   } catch (err) {
     console.log(err);
@@ -43,15 +43,22 @@ router.get("/blog/:id", async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
+        // { model: User, include: [Comment] },
         {
           model: User,
           attributes: ["name"],
+          // include: [{ model: Comment }],
         },
+        // {
+        //   model: Comment,
+        //   include: [User],
+        // },
+        // { all: true, nested: true },
       ],
     });
 
     const blog = blogData.get({ plain: true });
-
+    console.log(blog);
     res.render("blog", {
       ...blog,
       logged_in: req.session.logged_in,
@@ -63,6 +70,7 @@ router.get("/blog/:id", async (req, res) => {
 
 // Use withAuth middleware to prevent access to route
 router.get("/profile", withAuth, async (req, res) => {
+  console.log(req);
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {

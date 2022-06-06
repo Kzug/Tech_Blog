@@ -15,7 +15,7 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
-//Update a blog probably goes here
+//Update a blog
 router.put("/:id", withAuth, async (req, res) => {
   try {
     const blogData = await Blog.update(
@@ -29,13 +29,14 @@ router.put("/:id", withAuth, async (req, res) => {
       }
     );
 
-    res.redirect("/profile");
+    // res.redirect("/profile");
     console.log(blogData);
 
     if (!blogData) {
       res.status(404).json({ message: "No blog found with this id!" });
-      return;
+      // return;
     }
+    res.status(200).json(blogData);
   } catch (err) {
     res.status(500).json(err);
   }
