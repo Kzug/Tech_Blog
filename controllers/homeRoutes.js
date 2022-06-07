@@ -49,10 +49,10 @@ router.get("/blog/:id", async (req, res) => {
           attributes: ["name"],
           // include: [{ model: Comment }],
         },
-        // {
-        //   model: Comment,
-        //   include: [User],
-        // },
+        {
+          model: Comment,
+          include: [User],
+        },
         // { all: true, nested: true },
       ],
     });
@@ -70,12 +70,12 @@ router.get("/blog/:id", async (req, res) => {
 
 // Use withAuth middleware to prevent access to route
 router.get("/profile", withAuth, async (req, res) => {
-  console.log(req);
+  console.log(req.session);
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ["password"] },
-      include: [{ model: Blog }],
+      // include: [{ model: Blog }],
     });
 
     const user = userData.get({ plain: true });

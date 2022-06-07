@@ -12,7 +12,7 @@ const newCommentHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/profile"); //this should be blog:id?
+      document.location.reload();
     } else {
       alert("Failed to create comment");
     }
