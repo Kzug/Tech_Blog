@@ -57,7 +57,7 @@ router.get("/blog/:id", async (req, res) => {
     console.log("blog route");
     const blog = blogData.get({ plain: true });
     console.log("blog route again");
-    // console.log(blog.comments[0].user.name);
+    // console.log(blog.comments[0].user.name); //this line broke my code on heroku
     res.render("blog", {
       blog,
       logged_in: req.session.logged_in,
