@@ -11,7 +11,7 @@
 {{#each blog.comments as |comment| }}
 <div class="row mb-4 blog">
   <div class="col-md-5">
-    <a href = "/blog/{{comment.id}}"><p>{{comment.entry}}</p></a>
+    <div><p>{{comment.entry}}</p></div>
     <p>Created by {{comment.user.name}} on {{format_date comment.date_created}}</p>
 
   </div>
