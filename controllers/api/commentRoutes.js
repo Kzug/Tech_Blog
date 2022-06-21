@@ -6,12 +6,11 @@ router.post("/", withAuth, async (req, res) => {
   // console.log(req.body);
   console.log("Test One");
   try {
+    console.log("Secret Test");
     const newComment = await Comment.create({
       ...req.body,
       user_id: req.session.user_id,
     });
-
-    console.log("Secret Test");
     console.log("Test Two");
 
     res.status(200).json(newComment);
