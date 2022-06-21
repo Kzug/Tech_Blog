@@ -10,6 +10,8 @@ router.post("/", withAuth, async (req, res) => {
       ...req.body,
       user_id: req.session.user_id,
     });
+
+    console.log("Secret Test");
     console.log("Test Two");
 
     res.status(200).json(newComment);
